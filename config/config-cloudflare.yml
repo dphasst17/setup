@@ -1,0 +1,9 @@
+tunnel: e5ddbe08-ac12-4b68-99df-9c6959b05105
+credentials-file: /home/user/.cloudflared/e5ddbe08-ac12-4b68-99df-9c6959b05105.json
+
+ingress:
+  - hostname: api.example.com
+  # If you use docker to run your service, change localhost to the name of your docker container like below
+  #   service: http://<container_name>:port
+    service: http://localhost:8000
+  - service: http_status:404
