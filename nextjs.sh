@@ -1,7 +1,5 @@
 # Scaffold Next.js frontend (TypeScript)
 echo "Scaffolding Next.js frontend (frontend)..."
-mkdir -p frontend
-cd frontend
 echo "Install dependencies..."
 npm init -y >/dev/null 2>&1
 

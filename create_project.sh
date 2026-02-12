@@ -6,12 +6,12 @@ set -euo pipefail
 ROOT_DIR="$(pwd)/${NAME:-project}"
 
 read OS_TYPE DISTRO VERSION <<EOF
-$(sh ./os.sh)
+$(sh /d/bash/os.sh)
 EOF
 OS=$OS_TYPE
 DIS=$DISTRO
 VER=$VERSION
-CMD=$CMD
+#COMMAND=$CMD
 
 # Basic checks
 command -v node >/dev/null 2>&1 || { echo "Node.js not found. Install Node.js >= 16"; exit 1; }
@@ -26,30 +26,36 @@ cd "$ROOT_DIR"
 if [ ! -d .git ]; then
     git init >/dev/null 2>&1 || true
 fi
+echo "Choose frontend framework:"
+echo "1 React"
+echo "2 Next.js"
+echo "3 Angular"
+echo "4 Vue.js"
+echo "5 Exit"
+read -p "Enter choice [1-4]: " frontend_choice
 #Folder for bash helper scripts like /d/bash/nextjs.sh in windows or /home/user/bash/nextjs.sh in linux or /usr/local/bash/nextjs.sh in macos
 [ -d /d/bash ] &&
 FOLDER="/d/bash" || FOLDER="/home/fast/bash" || FOLDER="/usr/local/bash"
-
-command bash $FOLDER/nextjs.sh
-
+mkdir -p frontend
+cd frontend
+case $frontend_choice in
+  1) command bash $FOLDER/react.sh ;;
+  2) command bash $FOLDER/nextjs.sh ;;
+  3) command bash $FOLDER/angular.sh ;;
+  4) command bash $FOLDER/vue.sh ;;
+  5) exit ;;
+esac
+cd ..
 # Scaffold NestJS backend
-echo "Scaffolding NestJS backend (backend)..."
-
-command bash $FOLDER/nestjs.sh
-
+command bash $FOLDER/create_be.sh $FOLDER
 
 # Simple README
 cat > README.md <<'MD'
 Project Repository
 
 Structure:
-- Frontend : Next.js (TypeScript)
-- Backend  : NestJS
-
-Useful commands:
-- npm run dev          # runs both api and web concurrently
-- npm run dev:api      # run backend (NestJS) in dev mode
-- npm run dev:web      # run Next.js frontend in dev mode
+- Frontend : ${frontend_choice}
+- Backend  : ${backend_choice}
 
 Notes:
 - This script used npm workspaces. Ensure your npm version supports workspaces (npm >= 7).

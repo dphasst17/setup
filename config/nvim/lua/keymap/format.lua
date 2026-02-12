@@ -4,7 +4,7 @@ vim.keymap.set("n", "<A-l>", "<Cmd>BufferNext<CR>", {})
 vim.keymap.set("n", "<A-h>", "<Cmd>BufferPrevious<CR>", {})
 vim.api.nvim_set_keymap("i", "<C-g>", "codeium#Accept()", { expr = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", { desc = "Tìm chuỗi trong project" })
+vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", { desc = "Find character in project" })
 vim.api.nvim_set_keymap("n", "<C-s>", ":w!<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<C-s>", "<Esc>:w!<CR>a", { noremap = true, silent = true })
 

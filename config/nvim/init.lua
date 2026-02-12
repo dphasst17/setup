@@ -102,6 +102,14 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
+	},
+})
+
+require("luasnip.loaders.from_lua").lazy_load({
+  paths = "~/.config/nvim/lua/snippets",
 })
 
 -- Theme setup
@@ -133,7 +141,7 @@ require("nvim-tree").setup({
 	},
 	git = {
 		enable = true, -- bật tính năng git
-		ignore = false, -- ✨ KHÔNG ẩn file bị ignore như .env
+		ignore = false, 
 	},
 })
 
@@ -167,7 +175,7 @@ vim.opt.expandtab = true
 vim.opt.termguicolors = true
 vim.opt.mouse = "a"
 
-local terminal_id = 1 -- Biến lưu số lượng terminal
+local terminal_id = 1 
 
 function CreateNewTerminal()
 	vim.cmd("ToggleTerm " .. terminal_id)
