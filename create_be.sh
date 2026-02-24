@@ -48,7 +48,7 @@ if [ "$choice" = "1" ]; then
     for (( i=1; i<=num_services; i++ )); do
         read -p "Enter name for service $i: " service_name
         echo "Creating service: $service_name"
-        command bash /d/bash/${TECH}.sh "$service_name" "$architecture_type"
+        command bash ${FOLDER}/${TECH}.sh "$service_name" "$architecture_type"
         #Do something with $service_name like scaffolding a new service or do nothing
     done
     cd ..
@@ -57,7 +57,7 @@ if [ "$choice" = "1" ]; then
 elif [ "$choice" = "2" ]; then
     architecture_type="monolith"
     echo "Setting up monolithic architecture..."
-    command bash ${TECH}.sh "backend" "$architecture_type"
+    command bash ${FOLDER}/${TECH}.sh "backend" "$architecture_type"
 else
     echo "Invalid input. Please enter 1 for microservices or 2 for monolith."
     exit 1
