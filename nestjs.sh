@@ -25,7 +25,12 @@ echo "Scaffolding NestJS service: $1"
     rm src/app.controller.ts src/app.controller.spec.ts src/app.service.ts
     
     npm install
-
+    if [ "npm audit fix" ]; then
+        npm audit fix
+    fi
+    if [ "npm audit fix --force" ]; then
+        npm audit fix --force
+    fi
 cat > src/app.module.ts <<'EOF'
 import { Module } from '@nestjs/common';
 @Module({
