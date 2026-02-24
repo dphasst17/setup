@@ -17,5 +17,5 @@ This tool automates repetitive setup tasks such as:
 
 ```bash
 chmod +x project-gen.sh
-alias project-gen="~/tools/project-gen.sh"
+alias project-gen="~/folder_save/create_project.sh"
 source ~/.bashrc
