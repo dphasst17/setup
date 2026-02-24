@@ -8,12 +8,18 @@ npm install react react-dom @tanstack/react-router @tanstack/react-query @tansta
 # Webpack & loaders
 npm install --save-dev webpack webpack-cli webpack-dev-server \
     babel-loader @babel/core @babel/preset-env @babel/preset-react \
-    html-webpack-plugin css-loader style-loader tailwindcss @tailwindcss/postcss postcss postcss-loader autoprefixer \
-    @tanstack/router-plugin \
-    typescript ts-loader fork-ts-checker-webpack-plugin swc-loader \
+    html-webpack-plugin css-loader style-loader \
+    @tanstack/router-plugin swc-loader
 
 npm install --save-dev @types/react @types/react-dom @types/node
 
+if [ "npm audit fix" ]; then
+    npm audit fix
+fi
+
+if [ "npm audit fix --force" ]; then
+    npm audit fix --force
+fi
 #Set type from commonjs to module in package.json
 npm pkg set type="module"
 npm pkg set main="main.tsx"
@@ -33,7 +39,7 @@ read -p "Choose an option (1/2/n for none): " state_mgmt_choice
 if [[ "$install_ts" == "y" || "$install_ts" == "Y" ]]; then
     type=ts
     typex=tsx
-    npm install --save-dev typescript
+    npm install --save-dev typescript ts-loader fork-ts-checker-webpack-plugin
 
     cat << 'EOF' > tsconfig.json
 {
@@ -87,7 +93,7 @@ fi
 
 
 if [[ "$install_tailwind" == "y" || "$install_tailwind" == "Y" ]]; then
-    npm install -D tailwindcss @tailwindcss/postcss postcss
+    npm install -D tailwindcss @tailwindcss/postcss postcss postcss-loader autoprefixer
     echo "Configured Tailwind CSS"
     echo "export default {
   plugins: {
