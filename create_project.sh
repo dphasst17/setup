@@ -26,26 +26,11 @@ cd "$ROOT_DIR"
 if [ ! -d .git ]; then
     git init >/dev/null 2>&1 || true
 fi
-echo "Choose frontend framework:"
-echo "1 React"
-echo "2 Next.js"
-echo "3 Angular"
-echo "4 Vue.js"
-echo "5 Exit"
-read -p "Enter choice [1-4]: " frontend_choice
 #Folder for bash helper scripts like /d/bash/nextjs.sh in windows or /home/user/bash/nextjs.sh in linux or /usr/local/bash/nextjs.sh in macos
 [ -d /d/bash ] &&
 FOLDER="/d/bash" || FOLDER="/home/fast/bash" || FOLDER="/usr/local/bash"
-mkdir -p frontend
-cd frontend
-case $frontend_choice in
-  1) command bash $FOLDER/react.sh ;;
-  2) command bash $FOLDER/nextjs.sh ;;
-  3) command bash $FOLDER/angular.sh ;;
-  4) command bash $FOLDER/vue.sh ;;
-  5) exit ;;
-esac
-cd ..
+
+command bash $FOLDER/create_fe.sh $FOLDER
 # Scaffold NestJS backend
 command bash $FOLDER/create_be.sh $FOLDER
 
