@@ -4,9 +4,10 @@ echo "Install dependencies..."
 npm init -y >/dev/null 2>&1
 
 echo "Installing Next.js, React, TypeScript and Webpack..."
-npm install next@^14.2.0 react@^18.3.0 react-dom@^18.3.0
+npm install next@latest react@latest react-dom@latest next-font@latest
 
 # 3. Dev dependencies
+echo "Installing Dev dependencies..."
 npm install --save-dev \
   typescript @types/react @types/react-dom @types/node \
   webpack@5 webpack-cli webpack-dev-server \
@@ -14,9 +15,16 @@ npm install --save-dev \
   ts-loader \
   css-loader style-loader \
   postcss-loader postcss postcss-preset-env \
-  tailwindcss autoprefixer \
+  tailwindcss @tailwindcss/postcss autoprefixer \
   eslint eslint-config-next \
   concurrently
+
+
+echo "Set Scripts in package.json..."
+npm pkg set scripts.dev="next dev --webpack"
+npm pkg set scripts.build="next build --webpack"
+npm pkg set scripts.start="next start --webpack"
+npm pkg set scripts.lint="next lint --webpack"
 
 
 # 4. Setup project structure and config files
@@ -187,12 +195,34 @@ EOF
 mkdir -p src/app src/components src/pages src/styles src/public src/libs \
     src/types src/hooks src/features src/helpers src/configs src/constants
 
-touch src/app/page.tsx src/app/layout.tsx src/styles/globals.css
+touch src/app/page.tsx src/app/layout.tsx src/styles/globals.css src/styles/tailwind.css
+
+cat > src/styles/globals.css <<'EOF'
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-geist-sans), sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+a {
+  color: #0070f3;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+EOF
+cat > src/styles/tailwind.css <<'EOF'
+@import "tailwindcss";
+EOF
+
 #write basic layout and page
 cat > src/app/layout.tsx <<'EOF'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
+import "../styles/tailwind.css";
 
 // ========== METADATA OPTIMIZATION SEO ==========
 export const metadata: Metadata = {
